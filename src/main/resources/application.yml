@@ -1,0 +1,17 @@
+
+spring:
+  sql:
+    init:
+      platform: mysql
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOSTNAME}:3306/spring_batch
+    username: spring-batch-v4
+    password: batchv4
+#    platform: mysql
+  batch:
+    jdbc:
+      initialize-schema: always
+#    initialize-schema: always
+    
