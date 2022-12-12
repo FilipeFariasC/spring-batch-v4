@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 
 //@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringBatchV4UpcensusTestApplication {
 
