@@ -1,8 +1,10 @@
 package br.edu.ifpb.projetoum.springbatch.model;
 
+import java.text.MessageFormat;
+
 public class CursoIfpbReduced {
 	private Long identificador;
-	private String descricaoECargaHoraria;
+	private String descricao;
 	private String coordenador;
 	private ModalidadeCurso modalidade;
 	
@@ -14,11 +16,11 @@ public class CursoIfpbReduced {
 	public void setIdentificador(Long identificador) {
 		this.identificador = identificador;
 	}
-	public String getDescricaoECargaHoraria() {
-		return descricaoECargaHoraria;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDescricaoECargaHoraria(String descricaoECargaHoraria) {
-		this.descricaoECargaHoraria = descricaoECargaHoraria;
+	public void setDescricao(String descricao, Long cargaHoraria) {
+		this.descricao = MessageFormat.format("{0} - {1}h", descricao, cargaHoraria);
 	}
 	public String getCoordenador() {
 		return coordenador;

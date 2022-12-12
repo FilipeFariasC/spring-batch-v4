@@ -1,5 +1,7 @@
 package br.edu.ifpb.projetoum.springbatch.batch.config.processor;
 
+import java.text.MessageFormat;
+
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,7 @@ public class CursosIfpbProcessorConfiguration {
 		CursoIfpbReduced reduced = new CursoIfpbReduced();
 
 		reduced.setIdentificador(curso.getCodigo());
-		reduced.setDescricaoECargaHoraria(String.format("%s - %d", curso.getDescricao(), curso.getCargaHoraria()));
+		reduced.setDescricao(curso.getDescricao(), curso.getCargaHoraria());
 		reduced.setCoordenador(curso.getCoordenador());
 		reduced.setModalidade(curso.getModalidade());
 		
