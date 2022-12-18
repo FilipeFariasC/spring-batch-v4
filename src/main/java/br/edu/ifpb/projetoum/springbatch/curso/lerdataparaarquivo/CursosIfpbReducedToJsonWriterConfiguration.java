@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.shared.writer;
+package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
 
 import java.io.File;
 import java.io.IOException;

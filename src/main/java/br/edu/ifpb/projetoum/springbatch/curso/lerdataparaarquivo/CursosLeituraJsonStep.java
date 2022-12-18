@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb;
+package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -13,33 +13,33 @@ import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
 import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
 
 @Configuration
-public class CursosToJsonStepConfig {
+public class CursosLeituraJsonStep {
 
 	private final StepBuilderFactory stepBuilderFactory;
 	
-	public CursosToJsonStepConfig(
+	public CursosLeituraJsonStep(
 			StepBuilderFactory stepBuilderFactory
 		) {
 		super();
 		this.stepBuilderFactory = stepBuilderFactory;
 	}
-
 	
-	@Bean("cursosIfpbParaArquivo")
-	public Step cursosIfpbParaArquivo(
-			@Qualifier("csvCurso")
-			ItemReader<CursoIfpb> reader,
-			@Qualifier("assemblerCursoReduced")
-			ItemProcessor<CursoIfpb, CursoIfpbReduced> processor,
-			@Qualifier("jsonCursoReducedWriter")
-			ItemWriter<CursoIfpbReduced> writer
-			) {
-		return stepBuilderFactory
-			.get("cursosIfpbStepChunk")
-			.<CursoIfpb, CursoIfpbReduced>chunk(1)
-			.reader(reader)
-			.processor(processor)
-			.writer(writer)
-			.build();
+	@Bean("cursosStepLeitura")
+	public Step cursosStepLeitura(
+		@Qualifier("cursosIfpbParaArquivo")
+		ItemReader<CursoIfpb> reader,
+		@Qualifier("assemblerCursoReduced")
+		ItemProcessor<CursoIfpb, CursoIfpbReduced> processor,
+		@Qualifier("jsonCursoReducedWriter")
+		ItemWriter<CursoIfpbReduced> writer
+		) {
+	return stepBuilderFactory
+		.get("cursosIfpbStepChunk")
+		.<CursoIfpb, CursoIfpbReduced>chunk(1)
+		.reader(reader)
+		.processor(processor)
+		.writer(writer)
+		.build();
+		
 	}
 }

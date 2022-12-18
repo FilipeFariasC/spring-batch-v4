@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.shared.processor;
+package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
 
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.context.annotation.Bean;
