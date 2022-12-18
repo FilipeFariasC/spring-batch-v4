@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.config.processor;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.processor;
 
 import java.text.MessageFormat;
 
@@ -10,7 +10,7 @@ import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
 import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
 
 @Configuration
-public class CursosIfpbProcessorConfiguration {
+public class CursosIfpbToReducedProcessorConfiguration {
 
 	@Bean("assemblerCursoReduced")
 	public FunctionItemProcessor<CursoIfpb, CursoIfpbReduced> parOuImparProcessor() {

@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.config.reader;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.reader;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -20,7 +20,7 @@ import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
 import br.edu.ifpb.projetoum.springbatch.model.ModalidadeCurso;
 
 @Configuration
-public class CursosIfpbReaderConfiguration {
+public class CsvToCursosIfpbReaderConfiguration {
 	private static final String DELIMITADOR = ",";
 	private String[] cursosCsvColunas = new String[]{
 		"codigo",

@@ -1,5 +1,6 @@
-package br.edu.ifpb.projetoum.springbatch.batch.config.writer;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.writer;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -12,15 +13,18 @@ import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 
 import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
 
 @Configuration
-public class CursosIfpbJsonWriterConfiguration {
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-	private static final String BASE_FILENAME = "cursos-%s.json";
+public class CursosIfpbReducedToJsonWriterConfiguration {
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final String BASE_FILENAME = "/cursos-%s.json";
+	private static final String TEMP = "/tmp";
 	
 	@Bean("jsonCursoReducedWriter")
 	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter() {
@@ -34,17 +38,19 @@ public class CursosIfpbJsonWriterConfiguration {
 	}
 	
 	private Resource toResource() {
-		Resource resource = new FileSystemResource(getPath());
+		Resource resource = new PathResource(getPath());
+		
 		try {
-			resource.getFile().createNewFile();
+			File file = resource.getFile();
+			file.createNewFile();
 		} catch (IOException exception) {
-			exception.printStackTrace();
 		}
+		
 		return resource;
 	}
 	
 	private Path getPath() {
-		return Paths.get(System.getProperty("user.home"), getFilename()).toAbsolutePath();
+		return Paths.get(TEMP, getFilename()).toAbsolutePath();
 	}
 	
 	private String getFilename() {

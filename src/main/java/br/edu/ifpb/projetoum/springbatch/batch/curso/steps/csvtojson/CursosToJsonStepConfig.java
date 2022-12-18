@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.config.step;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -13,11 +13,11 @@ import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
 import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
 
 @Configuration
-public class CursosStepConfig {
+public class CursosToJsonStepConfig {
 
 	private final StepBuilderFactory stepBuilderFactory;
 	
-	public CursosStepConfig(
+	public CursosToJsonStepConfig(
 			StepBuilderFactory stepBuilderFactory
 		) {
 		super();
