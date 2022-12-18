@@ -21,10 +21,12 @@ public class CursosJobConfig {
 	}
 
 	@Bean("cursosIfpbJob")
-	public Job cursosIfpbJob(@Qualifier("cursosIfpbStepChunk") Step step) {
+	public Job cursosIfpbJob(
+			@Qualifier("cursosIfpbStepChunk") Step csvToDatabase
+			) {
 		return jobBuilderFactory
 			.get("cursosIfpbJob")
-			.start(step)
+			.start(csvToDatabase)
 			.incrementer(new RunIdIncrementer())
 			.build();
 	}

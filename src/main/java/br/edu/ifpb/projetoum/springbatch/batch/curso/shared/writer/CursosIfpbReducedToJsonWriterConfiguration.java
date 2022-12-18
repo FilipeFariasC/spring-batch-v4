@@ -18,7 +18,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 
-import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
+import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpbReduced;
 
 @Configuration
 public class CursosIfpbReducedToJsonWriterConfiguration {
