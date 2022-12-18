@@ -1,11 +1,23 @@
 package br.edu.ifpb.projetoum.springbatch.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="curso_ifpb")
 public class CursoIfpb {
+	
+	@Id
 	private Long codigo;
 	private String descricao;
 	private String diretoria;
 	private String naturezaParticipacao;
 	private String eixo;
+	@Enumerated(EnumType.STRING)
 	private ModalidadeCurso modalidade;
 	private String resolucaoCriacao;
 	private String coordenador;

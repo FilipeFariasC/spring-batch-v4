@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;

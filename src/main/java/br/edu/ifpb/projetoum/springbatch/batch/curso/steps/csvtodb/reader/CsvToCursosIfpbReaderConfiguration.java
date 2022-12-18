@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.reader;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb.reader;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.LineMapper;

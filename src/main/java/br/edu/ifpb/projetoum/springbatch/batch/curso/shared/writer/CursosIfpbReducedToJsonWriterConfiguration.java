@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.writer;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.shared.writer;
 
 import java.io.File;
 import java.io.IOException;

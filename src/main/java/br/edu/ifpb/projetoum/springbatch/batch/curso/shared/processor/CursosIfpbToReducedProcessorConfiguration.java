@@ -1,6 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtojson.processor;
-
-import java.text.MessageFormat;
+package br.edu.ifpb.projetoum.springbatch.batch.curso.shared.processor;
 
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.context.annotation.Bean;
