@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
-import br.edu.ifpb.projetoum.springbatch.model.CursoIfpbReduced;
+import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpb;
+import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpbReduced;
 
 @Configuration
 public class CursosLeituraJsonStep {
@@ -34,7 +34,7 @@ public class CursosLeituraJsonStep {
 		ItemWriter<CursoIfpbReduced> writer
 		) {
 	return stepBuilderFactory
-		.get("cursosIfpbStepChunk")
+		.get("cursosStepLeitura")
 		.<CursoIfpb, CursoIfpbReduced>chunk(1)
 		.reader(reader)
 		.processor(processor)

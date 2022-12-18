@@ -31,7 +31,7 @@ public class CursosToDatabaseStepConfig {
 			ItemWriter<CursoIfpb> writer
 			) {
 		return stepBuilderFactory
-			.get("cursosIfpbStepChunk")
+			.get("cursosIfpbParaArquivo")
 			.<CursoIfpb, CursoIfpb>chunk(1)
 			.reader(reader)
 			.writer(writer)
