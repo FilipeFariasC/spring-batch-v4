@@ -16,8 +16,8 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 
-import br.edu.ifpb.projetoum.springbatch.model.CursoIfpb;
-import br.edu.ifpb.projetoum.springbatch.model.ModalidadeCurso;
+import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpb;
+import br.edu.ifpb.projetoum.springbatch.model.entity.ModalidadeCurso;
 
 @Configuration
 public class CsvToCursosIfpbReaderConfiguration {

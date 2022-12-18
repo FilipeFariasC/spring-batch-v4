@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.model;
+package br.edu.ifpb.projetoum.springbatch.model.entity;
 
 import java.text.MessageFormat;
 

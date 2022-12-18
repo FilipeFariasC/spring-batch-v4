@@ -1,9 +1,8 @@
-package br.edu.ifpb.projetoum.springbatch.model;
+package br.edu.ifpb.projetoum.springbatch.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
