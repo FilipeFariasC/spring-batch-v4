@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb.reader;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.csvtodb.reader;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -33,7 +33,7 @@ public class CsvToCursosIfpbReaderConfiguration {
 		"cargaHoraria"
 	};
 	
-	@Bean("csvCurso")
+	@Bean("csvToCurso")
 	public ItemReader<CursoIfpb> cursoReader() {
         LineMapper<CursoIfpb> cursosCsvMapper = cursoLineMapper();
  

@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
 
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpbReduced;
 @Configuration
 public class CursosIfpbToReducedProcessorConfiguration {
 
-	@Bean("assemblerCursoReduced")
+	@Bean("cursoIfpbToReduced")
 	public FunctionItemProcessor<CursoIfpb, CursoIfpbReduced> parOuImparProcessor() {
 		return new FunctionItemProcessor<>(this::modelToReduced);
 	}

@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,16 +21,17 @@ public class CursosIfpbReaderArquivoConfiguration {
 	@Autowired
 	private CursosIfpbRepository repository;
 	
-	@Bean
+	@Bean("databaseToCursoIfpb")
 	public ItemReader<CursoIfpb> repositoryItemReader() {
 		
 		RepositoryItemReader<CursoIfpb> repositorio = new RepositoryItemReader<CursoIfpb>();
 		repositorio.setRepository(repository);
-		repositorio.setMethodName("listAll");
+		repositorio.setMethodName("findAll");
 		
 		Map<String, Direction> map = new HashMap<>();
 		map.put("codigo", Direction.ASC);
 		repositorio.setSort(map);
+		
 		return repositorio;
 		
 	}

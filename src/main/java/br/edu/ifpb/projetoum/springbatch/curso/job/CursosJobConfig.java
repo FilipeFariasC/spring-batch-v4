@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.job;
+package br.edu.ifpb.projetoum.springbatch.curso.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

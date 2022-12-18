@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 	private static final String BASE_FILENAME = "/cursos-%s.json";
 	private static final String TEMP = "/tmp";
 	
-	@Bean("jsonCursoReducedWriter")
+	@Bean("cursoIfpbReducedToJsonWriter")
 	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter() {
 		JacksonJsonObjectMarshaller<CursoIfpbReduced> marshaller = new JacksonJsonObjectMarshaller<>();
 		return new JsonFileItemWriterBuilder<CursoIfpbReduced>()

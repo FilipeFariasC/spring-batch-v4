@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb.writer;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.csvtodb.writer;
 
 import javax.persistence.EntityManager;
 

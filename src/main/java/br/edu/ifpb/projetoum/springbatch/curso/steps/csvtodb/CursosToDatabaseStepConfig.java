@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.batch.curso.steps.csvtodb;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.csvtodb;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -25,7 +25,7 @@ public class CursosToDatabaseStepConfig {
 	
 	@Bean("cursosIfpbParaArquivo")
 	public Step cursosIfpbParaArquivo(
-			@Qualifier("csvCurso")
+			@Qualifier("csvToCurso")
 			ItemReader<CursoIfpb> reader,
 			@Qualifier("cursoToDatabaseWriter")
 			ItemWriter<CursoIfpb> writer

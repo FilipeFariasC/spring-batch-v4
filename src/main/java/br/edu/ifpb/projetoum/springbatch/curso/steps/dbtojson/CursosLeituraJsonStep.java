@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.lerdataparaarquivo;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -26,11 +26,11 @@ public class CursosLeituraJsonStep {
 	
 	@Bean("cursosStepLeitura")
 	public Step cursosStepLeitura(
-		@Qualifier("cursosIfpbParaArquivo")
+		@Qualifier("databaseToCursoIfpb")
 		ItemReader<CursoIfpb> reader,
-		@Qualifier("assemblerCursoReduced")
+		@Qualifier("cursoIfpbToReduced")
 		ItemProcessor<CursoIfpb, CursoIfpbReduced> processor,
-		@Qualifier("jsonCursoReducedWriter")
+		@Qualifier("cursoIfpbReducedToJsonWriter")
 		ItemWriter<CursoIfpbReduced> writer
 		) {
 	return stepBuilderFactory
