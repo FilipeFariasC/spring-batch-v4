@@ -19,18 +19,21 @@ import br.edu.ifpb.projetoum.springbatch.model.repository.CursosIfpbRepository;
 public class CursosIfpbReaderArquivoConfiguration {
 	
 	@Autowired
-	private CursosIfpbRepository repository;
+	private final CursosIfpbRepository repository;
+	
+	public CursosIfpbReaderArquivoConfiguration(final CursosIfpbRepository repository) {
+		this.repository = repository;
+	}
 	
 	@Bean("databaseToCursoIfpb")
 	public ItemReader<CursoIfpb> repositoryItemReader() {
-		
-		RepositoryItemReader<CursoIfpb> repositorio = new RepositoryItemReader<CursoIfpb>();
+		RepositoryItemReader<CursoIfpb> repositorio = new RepositoryItemReader<>();
 		repositorio.setRepository(repository);
 		repositorio.setMethodName("findAll");
 		
-		Map<String, Direction> map = new HashMap<>();
-		map.put("codigo", Direction.ASC);
-		repositorio.setSort(map);
+		Map<String, Direction> sorts = new HashMap<>();
+		sorts.put("codigo", Direction.ASC);
+		repositorio.setSort(sorts);
 		
 		return repositorio;
 		

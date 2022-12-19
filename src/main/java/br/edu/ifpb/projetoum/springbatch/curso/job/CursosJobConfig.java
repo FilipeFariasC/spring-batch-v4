@@ -26,8 +26,8 @@ public class CursosJobConfig {
 		return jobBuilderFactory
 			.get("cursosIfpbJob")
 			.start(csvToDatabase)
+			.next(stepDataReader)
 			.incrementer(new RunIdIncrementer())
-			.start(stepDataReader)
 			.build();
 	}
 }

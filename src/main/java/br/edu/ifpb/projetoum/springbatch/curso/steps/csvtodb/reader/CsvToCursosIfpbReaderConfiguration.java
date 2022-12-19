@@ -32,6 +32,7 @@ public class CsvToCursosIfpbReaderConfiguration {
 		"coordenador",
 		"cargaHoraria"
 	};
+	private static final String FILEPATH = "data/cursos.csv";
 	
 	@Bean("csvToCurso")
 	public ItemReader<CursoIfpb> cursoReader() {
@@ -39,7 +40,7 @@ public class CsvToCursosIfpbReaderConfiguration {
  
         return new FlatFileItemReaderBuilder<CursoIfpb>()
                 .name("cursosReader")
-                .resource(new PathResource("data/cursos.csv"))
+                .resource(new PathResource(FILEPATH))
                 .linesToSkip(1)
                 .lineMapper(cursosCsvMapper)
                 .build();
