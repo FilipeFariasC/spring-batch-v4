@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson.reader;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,20 +1,20 @@
-package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson.writer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
 import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 
@@ -22,11 +22,12 @@ import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpbReduced;
 
 @Configuration
 public class CursosIfpbReducedToJsonWriterConfiguration {
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSSSSS");
 	private static final String BASE_FILENAME = "/cursos-%s.json";
-	private static final String TEMP = "/tmp";
+	private static final String TEMP = System.getProperty("java.io.tmpdir");
 	
 	@Bean("cursoIfpbReducedToJsonWriter")
+	@StepScope
 	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter() {
 		JacksonJsonObjectMarshaller<CursoIfpbReduced> marshaller = new JacksonJsonObjectMarshaller<>();
 		return new JsonFileItemWriterBuilder<CursoIfpbReduced>()
@@ -42,7 +43,12 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 		
 		try {
 			File file = resource.getFile();
-			file.createNewFile();
+			Path path = file.toPath();
+			if (file.exists()) {
+			    Files.delete(path);
+			}
+			Files.createFile(path);
+			System.out.println(path);
 		} catch (IOException exception) {
 		}
 		

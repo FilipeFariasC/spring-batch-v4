@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson.processor;
 
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.context.annotation.Bean;

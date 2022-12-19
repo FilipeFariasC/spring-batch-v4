@@ -9,22 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CursosJobConfig {
+public class CursoJobXlsxToDbConfig {
 	
 	private final JobBuilderFactory jobBuilderFactory;
 	
-	public CursosJobConfig(
+	public CursoJobXlsxToDbConfig(
 			JobBuilderFactory jobBuilderFactory
 		) {
 		super();
 		this.jobBuilderFactory = jobBuilderFactory;
 	}
 
-	@Bean("cursosIfpbJob")
-	public Job cursosIfpbJob(@Qualifier("cursosIfpbParaArquivo") Step csvToDatabase,
+	@Bean("cursosIfpbJobXlsx")
+	public Job cursosIfpbJobXlsx(@Qualifier("cursosIfpbParaArquivo") Step csvToDatabase,
 			@Qualifier("cursosStepLeitura") Step stepDataReader) {
 		return jobBuilderFactory
-			.get("cursosIfpbJob")
+			.get("cursosIfpbJobXlsx")
 			.start(csvToDatabase)
 			.next(stepDataReader)
 			.incrementer(new RunIdIncrementer())
