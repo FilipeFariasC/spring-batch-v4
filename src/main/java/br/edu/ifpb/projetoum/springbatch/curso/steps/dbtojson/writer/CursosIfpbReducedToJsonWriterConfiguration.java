@@ -1,4 +1,4 @@
-package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson;
+package br.edu.ifpb.projetoum.springbatch.curso.steps.dbtojson.writer;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
 import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
@@ -26,6 +27,7 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 	private static final String TEMP = System.getProperty("java.io.tmpdir");
 	
 	@Bean("cursoIfpbReducedToJsonWriter")
+	@StepScope
 	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter() {
 		JacksonJsonObjectMarshaller<CursoIfpbReduced> marshaller = new JacksonJsonObjectMarshaller<>();
 		
@@ -43,9 +45,10 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 			File file = resource.getFile();
 			Path path = file.toPath();
 			if (file.exists()) {
-				Files.delete(path);
+			    Files.delete(path);
 			}
 			Files.createFile(path);
+			System.out.println(path);
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

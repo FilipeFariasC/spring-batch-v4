@@ -15,7 +15,6 @@ public class CursosIfpbToDatabaseWriterConfiguration {
 	public JpaItemWriter<CursoIfpb> cursoIfpbToDatabaseWriter(EntityManager entityManager) {
 		JpaItemWriter<CursoIfpb> writer = new JpaItemWriter<>();
 		writer.setEntityManagerFactory(entityManager.getEntityManagerFactory());
-		
 		return writer;
 	}
 	
