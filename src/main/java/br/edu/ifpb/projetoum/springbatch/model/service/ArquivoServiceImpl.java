@@ -7,7 +7,11 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,8 @@ public class ArquivoServiceImpl implements ArquivoService{
 	
 	private final String FOLDER = "uploads";
 	private final Path root = Paths.get(FOLDER);
+	
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSS");
 	
 	{
 		this.init();
@@ -34,17 +40,16 @@ public class ArquivoServiceImpl implements ArquivoService{
 	
 	@Override
 	public String save(MultipartFile file) {
-		Path path = this.root.resolve(file.getOriginalFilename());
+		String renamed = renameFile(file);
+		Path path = this.root.resolve(renamed);
 		File filePath = path.toFile();
 		try {
 			if (filePath.exists()) {
-				System.out.println("O arquivo existe");
 				return null;
 			}
 			Files.copy(file.getInputStream(), path);
 			return path.toAbsolutePath().toString();
 		} catch (IOException exception) {
-			System.out.println(file);
 			throw new UncheckedIOException(exception);
 		}
 	}
@@ -59,7 +64,6 @@ public class ArquivoServiceImpl implements ArquivoService{
 			
 			return null;
 		} catch (MalformedURLException exception) {
-			System.out.println(filename);
 			throw new UncheckedIOException(exception);
 		}
 	}
@@ -73,6 +77,17 @@ public class ArquivoServiceImpl implements ArquivoService{
 		} catch (IOException exception) {
 			throw new UncheckedIOException(exception);
 		}
+	}
+	
+	private String now() {
+		return LocalDateTime.now().format(formatter);
+	}
+	
+	private String renameFile(MultipartFile file) {
+		String filename = FileUtils.getFilename(file);
+		String extension = FileUtils.getExtension(file);
+		
+		return MessageFormat.format("{0}-{1}{2}", filename, now(), extension.isEmpty() ? extension : ".".concat(extension));
 	}
 
 }

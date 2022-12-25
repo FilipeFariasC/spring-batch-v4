@@ -1,6 +1,7 @@
 package br.edu.ifpb.projetoum.springbatch.curso.steps.csvtodb.reader;
 
-import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -8,6 +9,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.LineTokenizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
@@ -32,15 +34,15 @@ public class CsvToCursosIfpbReaderConfiguration {
 		"coordenador",
 		"cargaHoraria"
 	};
-	private static final String FILEPATH = "uploads/cursos.csv";
 	
 	@Bean("csvToCurso")
-	public ItemReader<CursoIfpb> cursoReader() {
+	@StepScope
+	public FlatFileItemReader<CursoIfpb> cursoReader(@Value("#{jobParameters['arquivo']}") String filepath) {
         LineMapper<CursoIfpb> cursosCsvMapper = cursoLineMapper();
  
         return new FlatFileItemReaderBuilder<CursoIfpb>()
                 .name("cursosReader")
-                .resource(new PathResource(FILEPATH))
+                .resource(new PathResource(filepath))
                 .linesToSkip(1)
                 .lineMapper(cursosCsvMapper)
                 .build();

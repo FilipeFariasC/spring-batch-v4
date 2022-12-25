@@ -1,21 +1,14 @@
 package br.edu.ifpb.projetoum.springbatch.resources;
 
 import java.io.UncheckedIOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.batch.runtime.JobExecution;
-
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,33 +25,38 @@ import br.edu.ifpb.projetoum.springbatch.model.service.ArquivoService;
 @RequestMapping("/arquivo")
 public class ArquivoResources {
 	
-	@Autowired
-	@Qualifier("cursosIfpbJob")
-	private Job job;
+	private final Job cursosCsvJob;
 	
-	@Autowired
-	private JobLauncher jobLaumcher;
-	
+	private JobLauncher jobLauncher;
 
 	private final ArquivoService arquivoService;
 	
-	public ArquivoResources(final ArquivoService arquivoService) {
+	
+	public ArquivoResources(
+			final ArquivoService arquivoService,
+			@Qualifier("cursosIfpbJob")
+			final Job cursosCsvJob,
+			final JobLauncher jobLauncher
+			) {
 		this.arquivoService = arquivoService;
+		this.cursosCsvJob = cursosCsvJob;
+		this.jobLauncher = jobLauncher;
 	}
 	
 	
 	@PostMapping("/upload")
-	public ResponseEntity<ArquivoResponse> upload(@RequestParam("arquivo") MultipartFile file) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+	public ResponseEntity<JobResponse> upload(@RequestParam("arquivo") MultipartFile file) throws Exception {
 		String caminho = arquivoService.save(file);
 		Map<String, JobParameter> param = new HashMap<>();
-		param.put("cursosIfpbJob",new JobParameter(new Date().getTime()));
+		param.put("arquivo",new JobParameter(caminho));
 		JobParameters jobParameters = new JobParameters(param);
-		org.springframework.batch.core.JobExecution jobExecution = jobLaumcher.run(job, jobParameters);
-		return ResponseEntity.ok(ArquivoResponse.of(caminho));
+		JobExecution jobExecution = jobLauncher.run(cursosCsvJob, jobParameters);
+		
+		return ResponseEntity.ok(JobResponse.of(caminho, jobExecution.getCreateTime(), jobExecution.getStartTime(), jobExecution.getEndTime(), jobExecution.getExitStatus()));
 	}
 	
 	@DeleteMapping("/delete/{filename}")
-	public ResponseEntity<ArquivoResponse> upload(@PathVariable("filename") String filename) {
+	public ResponseEntity<JobResponse> upload(@PathVariable("filename") String filename) {
 		try {
 			arquivoService.delete(filename);
 			return ResponseEntity.noContent().build();

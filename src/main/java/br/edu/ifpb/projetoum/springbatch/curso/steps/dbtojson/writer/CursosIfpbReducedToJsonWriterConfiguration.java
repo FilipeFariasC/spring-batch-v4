@@ -48,7 +48,6 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 			    Files.delete(path);
 			}
 			Files.createFile(path);
-			System.out.println(path);
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
