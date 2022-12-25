@@ -32,7 +32,7 @@ public class CsvToCursosIfpbReaderConfiguration {
 		"coordenador",
 		"cargaHoraria"
 	};
-	private static final String FILEPATH = "data/cursos.csv";
+	private static final String FILEPATH = "uploads/cursos.csv";
 	
 	@Bean("csvToCurso")
 	public ItemReader<CursoIfpb> cursoReader() {
