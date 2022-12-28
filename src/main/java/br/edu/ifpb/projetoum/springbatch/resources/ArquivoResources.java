@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.ifpb.projetoum.springbatch.model.service.ArquivoService;
+import br.edu.ifpb.projetoum.springbatch.model.service.FileUtils;
 
 @RestController
 @RequestMapping("/arquivo")
@@ -48,11 +49,11 @@ public class ArquivoResources {
 	public ResponseEntity<JobResponse> upload(@RequestParam("arquivo") MultipartFile file) throws Exception {
 		String caminho = arquivoService.save(file);
 		Map<String, JobParameter> param = new HashMap<>();
-		param.put("arquivo",new JobParameter(caminho));
+		param.put("arquivo", new JobParameter(caminho));
 		JobParameters jobParameters = new JobParameters(param);
 		JobExecution jobExecution = jobLauncher.run(cursosCsvJob, jobParameters);
 		
-		return ResponseEntity.ok(JobResponse.of(caminho, jobExecution.getCreateTime(), jobExecution.getStartTime(), jobExecution.getEndTime(), jobExecution.getExitStatus()));
+		return ResponseEntity.ok(JobResponse.of(caminho, FileUtils.Extension.CSV, FileUtils.Extension.JSON, jobExecution.getCreateTime(), jobExecution.getStartTime(), jobExecution.getEndTime(), jobExecution.getExitStatus()));
 	}
 	
 	@DeleteMapping("/delete/{filename}")

@@ -19,6 +19,7 @@ import org.springframework.core.io.PathResource;
 
 import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpb;
 import br.edu.ifpb.projetoum.springbatch.model.entity.ModalidadeCurso;
+import br.edu.ifpb.projetoum.springbatch.model.service.FileUtils;
 
 @Configuration
 public class CsvToCursosIfpbReaderConfiguration {
@@ -39,11 +40,11 @@ public class CsvToCursosIfpbReaderConfiguration {
 	@StepScope
 	public FlatFileItemReader<CursoIfpb> cursoReader(@Value("#{jobParameters['arquivo']}") String filepath) {
         LineMapper<CursoIfpb> cursosCsvMapper = cursoLineMapper();
- 
         return new FlatFileItemReaderBuilder<CursoIfpb>()
                 .name("cursosReader")
-                .resource(new PathResource(filepath))
-                .linesToSkip(1)
+                .resource(
+                	new PathResource(FileUtils.UPLOAD_PATH.resolve(filepath))
+            	).linesToSkip(1)
                 .lineMapper(cursosCsvMapper)
                 .build();
     }

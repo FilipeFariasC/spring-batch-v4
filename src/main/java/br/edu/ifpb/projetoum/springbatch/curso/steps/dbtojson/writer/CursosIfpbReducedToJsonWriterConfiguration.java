@@ -6,44 +6,46 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
 import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 
 import br.edu.ifpb.projetoum.springbatch.model.entity.CursoIfpbReduced;
+import br.edu.ifpb.projetoum.springbatch.model.service.FileUtils;
 
 @Configuration
 public class CursosIfpbReducedToJsonWriterConfiguration {
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSSSSS");
-	private static final String BASE_FILENAME = "cursos-%s.json";
-	private static final String TEMP = System.getProperty("java.io.tmpdir");
 	
+	
+
 	@Bean("cursoIfpbReducedToJsonWriter")
 	@StepScope
-	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter() {
+	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter(@Value("#{jobParameters['arquivo']}") String path) {
 		JacksonJsonObjectMarshaller<CursoIfpbReduced> marshaller = new JacksonJsonObjectMarshaller<>();
 		
 		return new JsonFileItemWriterBuilder<CursoIfpbReduced>()
 				.name("cursoIfpbReducedToJsonWriter")
 				.jsonObjectMarshaller(marshaller)
-				.encoding(StandardCharsets.UTF_8.displayName())
-				.resource(toResource())
+				.encoding(StandardCharsets.UTF_8.displayName(new Locale("pt", "BR")))
+				.resource(toResource(path))
 				.build();
 	}
-	
-	private Resource toResource() {
-		Resource resource = new PathResource(getPath());
+
+	private Resource toResource(String filePath) {
+		String filename = Paths.get(filePath).getFileName().toString().replaceAll(".\\w+$", FileUtils.Extension.JSON.getExtension());
+		Path path = FileUtils.RESULT_PATH.resolve(filename);
+		Resource resource = new PathResource(path);
+
 		try {
 			File file = resource.getFile();
-			Path path = file.toPath();
 			if (file.exists()) {
 			    Files.delete(path);
 			}
@@ -51,19 +53,7 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
-		
+
 		return resource;
-	}
-	
-	private Path getPath() {
-		return Paths.get(TEMP, getFilename()).toAbsolutePath();
-	}
-	
-	private String getFilename() {
-		return String.format(BASE_FILENAME, horarioAtual());
-	}
-	
-	private String horarioAtual() {
-		return LocalDateTime.now().format(formatter);
 	}
 }

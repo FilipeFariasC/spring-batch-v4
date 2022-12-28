@@ -23,8 +23,10 @@ public class CursosJobConfig {
 	}
 
 	@Bean("cursosIfpbJob")
-	public Job cursosIfpbJob(@Qualifier("cursosIfpbParaArquivo") Step csvToDatabase,
-			@Qualifier("cursosStepLeitura") Step stepDataReader) {
+	public Job cursosIfpbJob(
+			@Qualifier("cursosIfpbParaArquivo") Step csvToDatabase,
+			@Qualifier("cursosStepLeitura") Step stepDataReader
+			) {
 		return jobBuilderFactory
 			.get("cursosIfpbJob")
 			.start(csvToDatabase)
