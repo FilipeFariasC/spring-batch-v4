@@ -8,6 +8,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 @EnableBatchProcessing
@@ -23,6 +24,7 @@ public class CursosJobConfig {
 	}
 
 	@Bean("cursosIfpbJob")
+	@Primary
 	public Job cursosIfpbJob(
 			@Qualifier("cursosIfpbParaArquivo") Step csvToDatabase,
 			@Qualifier("cursosStepLeitura") Step stepDataReader

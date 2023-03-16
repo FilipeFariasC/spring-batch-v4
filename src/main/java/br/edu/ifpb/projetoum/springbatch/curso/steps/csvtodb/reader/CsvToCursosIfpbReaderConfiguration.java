@@ -12,6 +12,7 @@ import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
@@ -38,7 +39,8 @@ public class CsvToCursosIfpbReaderConfiguration {
 	
 	@Bean("csvToCurso")
 	@StepScope
-	public FlatFileItemReader<CursoIfpb> cursoReader(@Value("#{jobParameters['arquivo']}") String filepath) {
+	@Primary
+	public FlatFileItemReader<CursoIfpb> cursoReader(@Value("C:\\Users\\filip\\OneDrive\\Área de Trabalho\\spring-batch-v4\\data\\cursos.csv") String filepath) {
         LineMapper<CursoIfpb> cursosCsvMapper = cursoLineMapper();
         return new FlatFileItemReaderBuilder<CursoIfpb>()
                 .name("cursosReader")

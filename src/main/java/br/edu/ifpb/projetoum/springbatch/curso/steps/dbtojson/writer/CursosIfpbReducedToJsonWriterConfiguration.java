@@ -28,7 +28,7 @@ public class CursosIfpbReducedToJsonWriterConfiguration {
 
 	@Bean("cursoIfpbReducedToJsonWriter")
 	@StepScope
-	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter(@Value("#{jobParameters['arquivo']}") String path) {
+	public JsonFileItemWriter<CursoIfpbReduced> cursoReducedJsonWriter(@Value("C:\\Users\\filip\\OneDrive\\Área de Trabalho\\spring-batch-v4\\data\\cursos.csv") String path) {
 		JacksonJsonObjectMarshaller<CursoIfpbReduced> marshaller = new JacksonJsonObjectMarshaller<>();
 		
 		return new JsonFileItemWriterBuilder<CursoIfpbReduced>()
