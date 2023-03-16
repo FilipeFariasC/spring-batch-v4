@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableBatchProcessing
 public class CursosJobConfig {
 	
+	
 	private final JobBuilderFactory jobBuilderFactory;
 	
 	public CursosJobConfig(
